@@ -1,0 +1,12 @@
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\bin\Debug\net6.0\ModelLayer.deps.json
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\bin\Debug\net6.0\ModelLayer.dll
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\bin\Debug\net6.0\ModelLayer.pdb
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.csproj.AssemblyReference.cache
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfoInputs.cache
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.AssemblyInfo.cs
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.csproj.CoreCompileInputs.cache
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.dll
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\refint\ModelLayer.dll
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ModelLayer.pdb
+C:\Users\pagad\source\repos\BookStoreApplication\ModelLayer\obj\Debug\net6.0\ref\ModelLayer.dll
