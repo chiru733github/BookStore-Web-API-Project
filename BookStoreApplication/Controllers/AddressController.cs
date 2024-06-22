@@ -102,7 +102,7 @@ namespace BookStoreApplication.Controllers
                 bool Remove = addressBL.RemoveAddress(UserId,addressId);
                 if (Remove)
                 {
-                    return Ok(new ResponseModel<bool> { IsSuccess = true, Message = "Remove book from Address by Address Id", Data = Remove });
+                    return Ok(new ResponseModel<bool> { IsSuccess = true, Message = "Remove Address by Address Id", Data = Remove });
                 }
                 else
                 {
@@ -124,11 +124,11 @@ namespace BookStoreApplication.Controllers
                 AddressEntity result = addressBL.GetAddressById(UserId,addressId);
                 if (result != null)
                 {
-                    return Ok(new ResponseModel<AddressEntity> { IsSuccess = true, Message = "select by Address Id successfull", Data = result });
+                    return Ok(new ResponseModel<AddressEntity> { IsSuccess = true, Message = "select Address by Address Id", Data = result });
                 }
                 else
                 {
-                    return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed", Data = "BookId does not exist" });
+                    return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed", Data = "AddressId does not exist" });
                 }
             }
             catch (Exception ex)

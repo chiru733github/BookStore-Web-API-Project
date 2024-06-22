@@ -132,5 +132,75 @@ namespace BookStoreApplication.Controllers
                 return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "while Removing Book throws Exception", Data = ex.Message });
             }
         }
+
+        //Review Questions
+        [HttpGet("FindBook")]
+        public ActionResult FindBook(string BookName,string AuthorName)
+        {
+            try
+            {
+                BookEntity result = booksBL.FindBook(BookName,AuthorName);
+                if (result != null)
+                {
+                    return Ok(new ResponseModel<BookEntity> { IsSuccess = true, Message = "select by Book Id successfull", Data = result });
+                }
+                else
+                {
+                    return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed", Data = "BookId does not exist" });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPut("UpdateOrInsert")]
+        public ActionResult UpdateOrInsert(int BookId, BookModel model)
+        {
+            try
+            {
+                BookEntity updateUser = booksBL.EditOrInsertBookDetails(BookId, model);
+                if (updateUser.BookId==BookId)
+                {
+                    return Ok(new ResponseModel<BookEntity> { IsSuccess = true, Message = "user is updated the book by using BookId", Data = updateUser });
+                }
+                else if(updateUser!=null)
+                {
+                    return Ok(new ResponseModel<BookEntity> { IsSuccess = true, Message = "user is Inserted the book", Data = updateUser });
+                }
+                else
+                {
+                    return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed", Data = "BookId does not exist" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Failed", Data = ex.Message });
+            }
+        }
+        [HttpGet("WishListwithUser")]
+        public async Task<IActionResult> WishListwithUser()
+        {
+            string cacheKey = "WishListWithUser";
+            string serializationUserList;
+            var WishListWithUser = new List<WishListWithUser>();
+            byte[] RedisUsersList = await _cache.GetAsync(cacheKey);
+            if (RedisUsersList != null)
+            {
+                serializationUserList = Encoding.UTF8.GetString(RedisUsersList);
+                WishListWithUser = JsonConvert.DeserializeObject<List<WishListWithUser>>(serializationUserList);
+            }
+            else
+            {
+                WishListWithUser = booksBL.WishListWithUser();
+                serializationUserList = JsonConvert.SerializeObject(WishListWithUser);
+                RedisUsersList = Encoding.UTF8.GetBytes(serializationUserList);
+                DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(11))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(3));
+                await _cache.SetAsync(cacheKey, RedisUsersList, options);
+            }
+            return Ok(WishListWithUser);
+        }
     }
 }

@@ -30,6 +30,8 @@ namespace BookStoreApplication
             builder.Services.AddTransient<IAddressRepo, AddressRepo>();
             builder.Services.AddTransient<IOrdersBL, OrdersBL>();
             builder.Services.AddTransient<IOrdersRepo, OrdersRepo>();
+            builder.Services.AddTransient<IFeedBackBL, FeedBackBL>();
+            builder.Services.AddTransient<IFeedBackRepo , FeedBackRepo>();
 
             builder.Services.AddSwaggerGen(
     option =>

@@ -39,7 +39,7 @@ namespace BookStoreApplication.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "while Add order throws Exception", Data = ex.Message });
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "while Adding order throws Exception", Data = ex.Message });
             }
         }
         [Authorize]
@@ -76,7 +76,7 @@ namespace BookStoreApplication.Controllers
                 bool Remove = ordersBL.CancellingOrder(orderId);
                 if (Remove)
                 {
-                    return Ok(new ResponseModel<bool> { IsSuccess = true, Message = "Cancelling order by using order Id", Data = Remove });
+                    return Ok(new ResponseModel<bool> { IsSuccess = true, Message = "Cancel order by using order Id", Data = Remove });
                 }
                 else
                 {

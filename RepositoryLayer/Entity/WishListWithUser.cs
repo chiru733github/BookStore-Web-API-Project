@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Entity
 {
-    public class WishListEntity
+    public class WishListWithUser
     {
         public int WishListId { get; set; }
         public string BookImg { get; set; }
@@ -14,8 +14,10 @@ namespace RepositoryLayer.Entity
         public string AuthorName { get; set; }
         public decimal MRP { get; set; }
         public decimal DiscountPrice { get; set; }
-        public int UserId { get; set; }
         public int BookId { get; set; }
-        
+        public int UserId { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string MobileNumber { get; set; }
     }
 }

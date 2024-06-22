@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLayer.Models;
@@ -15,5 +17,8 @@ namespace BusinessLayer.Interfaces
         bool EditBookDetails(int BookId, BookModel model);
         List<BookEntity> GetAllBooks();
         bool RemoveBook(int BookId);
+        BookEntity FindBook(string BookName,string AuthorName);
+        BookEntity EditOrInsertBookDetails(int BookId, BookModel model);
+        List<WishListWithUser> WishListWithUser();
     }
 }

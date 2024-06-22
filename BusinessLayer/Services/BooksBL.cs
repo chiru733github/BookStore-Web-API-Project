@@ -42,5 +42,20 @@ namespace BusinessLayer.Services
         {
             return _booksRepo.RemoveBook(BookId);
         }
+
+        public BookEntity FindBook(string BookName, string AuthorName)
+        {
+            return _booksRepo.FindBook(BookName, AuthorName);
+        }
+
+        public BookEntity EditOrInsertBookDetails(int BookId, BookModel model)
+        {
+            return _booksRepo.EditOrInsertBookDetails(BookId, model);
+        }
+
+        public List<WishListWithUser> WishListWithUser()
+        {
+            return _booksRepo.WishListWithUser();
+        }
     }
 }

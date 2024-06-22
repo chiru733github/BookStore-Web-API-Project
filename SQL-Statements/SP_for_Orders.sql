@@ -32,6 +32,10 @@ begin
 				--insert into orders
 				Insert into Orders(bookImg,bookName,AuthorName,TotalMRP,ActualPrice,Quantity,OrderedDateTime,Address,IsDeleted,UserId,BookId,AddressId) output Inserted.OrderId into @Identity
 				values(@bookImg,@BookName,@AuthorName,@MRP,@DiscountPrice,@Quantity,GETDATE(),@Address,0,@userId,@BookId,@AddressId);
+				--Update on Book quantity
+				update Book
+				set Quantity=Quantity-@Quantity
+				where BookId=@BookId;
 				--Fetch cart details
 				select * from Orders where OrderId=(select ID from @Identity);
 				--remove from cart
@@ -56,7 +60,6 @@ begin
 	end catch
 end;
 go
-select * from Orders
 create proc GetAllOrdersByUserId
 (
 	@userId int
@@ -122,7 +125,7 @@ begin
 	end
 	else
 	begin
-		select * from Orders;
+		select * from Orders where IsDeleted=0;
 	end
 	end try
 	begin catch

@@ -73,6 +73,7 @@ create table Orders(
     BookId int foreign key references Book(BookId),
 	AddressId int foreign key references AddressForOrder(AddressId),
 	);
+
 create table FeedBack(
 	FeedBackId int primary key Identity(1,1),
 	UserName varchar(50),

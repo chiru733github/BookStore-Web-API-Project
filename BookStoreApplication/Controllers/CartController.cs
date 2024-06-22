@@ -41,7 +41,7 @@ namespace BookStoreApplication.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "Add cart throws Exception", Data = ex.Message });
+                return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "while Adding cart throws Exception", Data = ex.Message });
             }
         }
         [Authorize]

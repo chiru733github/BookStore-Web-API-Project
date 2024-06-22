@@ -48,26 +48,26 @@ namespace BookStoreApplication.Controllers
         public async Task<IActionResult> GetAllWishListsByUserId()
         {
             int UserId = int.Parse(User.FindFirst("UserId").Value);
-            string cacheKey = "WishLists";
+            string cacheKey = "WishListsByUserId";
             string serializationUserList;
-            var WishLists = new List<WishListEntity>();
+            var WishListsByUserId = new List<WishListEntity>();
             byte[] RedisUsersList = await _cache.GetAsync(cacheKey);
             if (RedisUsersList != null)
             {
                 serializationUserList = Encoding.UTF8.GetString(RedisUsersList);
-                WishLists = JsonConvert.DeserializeObject<List<WishListEntity>>(serializationUserList);
+                WishListsByUserId = JsonConvert.DeserializeObject<List<WishListEntity>>(serializationUserList);
             }
             else
             {
-                WishLists = wishListBL.GetAllWishListByUserId(UserId);
-                serializationUserList = JsonConvert.SerializeObject(WishLists);
+                WishListsByUserId = wishListBL.GetAllWishListByUserId(UserId);
+                serializationUserList = JsonConvert.SerializeObject(WishListsByUserId);
                 RedisUsersList = Encoding.UTF8.GetBytes(serializationUserList);
                 DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(DateTime.Now.AddMinutes(11))
                     .SetSlidingExpiration(TimeSpan.FromMinutes(3));
                 await _cache.SetAsync(cacheKey, RedisUsersList, options);
             }
-            return Ok(WishLists);
+            return Ok(WishListsByUserId);
         }
         [Authorize]
         [HttpDelete("RemoveBookFromWishList")]

@@ -16,6 +16,9 @@ namespace RepositoryLayer.Interfaces
         BookEntity GetByBookId(int id);
         bool EditBookDetails(int BookId, BookModel model);
         List<BookEntity> GetAllBooks();
+        BookEntity FindBook(string BookName, string AuthorName);
         bool RemoveBook(int BookId);
+        BookEntity EditOrInsertBookDetails(int BookId, BookModel model);
+        List<WishListWithUser> WishListWithUser();
     }
 }

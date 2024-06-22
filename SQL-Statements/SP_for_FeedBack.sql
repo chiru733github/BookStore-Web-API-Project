@@ -18,7 +18,7 @@ begin
 		select @UserName=FullName from Users where userId=@userId
 		if exists(select 1 from Book where BookId=@BookId)
 		begin
-			insert into FeedBack(UserName,Comment,rating,userId,BookId,IsDelected) output Inserted.FeedBackId into @Identity
+			insert into FeedBack(UserName,Comment,rating,userId,BookId,IsDelete) output Inserted.FeedBackId into @Identity
 			values(@UserName,@Comment,@rating,@userId,@BookId,@IsDeleted);
 			--update on book
 			update book
@@ -46,7 +46,7 @@ begin
 end;
 go
 
-----Edit Address----
+----Edit FeedBack----
 create proc EditFeedBack
 (
 	@FeedBackId int,
@@ -63,7 +63,7 @@ begin
 	begin
 		if exists(select 1 from Book where BookId=@BookId)
 		begin
-			select @previousRating=rating from FeedBack where FeedBackId=@FeedBackId;
+			select @previousRating=rating from FeedBack where FeedBackId=@FeedBackId and IsDelete=0;
 			--update on FeedBack
 			update FeedBack
 			set Comment=@Comment,rating=@rating
@@ -96,21 +96,20 @@ go
 ----Delete FeedBack by FeedBackId----
 create proc RemoveFeedBack
 (
-	@UserId int,
 	@FeedBackId int
 )
 as
 begin
 	begin try
 		Declare @previousRating int;
-		if exists(select 1 from FeedBack where FeedBackId=@FeedBackId and userId=@UserId)
+		if exists(select 1 from FeedBack where FeedBackId=@FeedBackId)
 		begin
 			select @previousRating=rating from FeedBack where FeedBackId=@FeedBackId;
 			--update on book rating and No of rating column
 			update Book
 			set NoofRating=NoofRating-1,
 				rating = (rating*NoofRating-@previousRating)/(NoofRating-1)
-			where book
+			where BookId=(select BookId from FeedBack where FeedBackId=@FeedBackId);
 			--update on FeedBack
 			update FeedBack
 			set IsDelete=1
@@ -118,7 +117,7 @@ begin
 		end
 		else
 		begin
-			throw 50001,'Invalid FeedBack Id or User Id',1;
+			throw 50001,'Invalid FeedBack Id',1;
 		end
 	end try
 	begin catch
@@ -128,3 +127,23 @@ begin
 	end catch
 end;
 go
+----View All FeedBack----
+create proc ViewAllFeedBack
+as
+begin
+	begin try
+	if((select count(*) from FeedBack)=0)
+	begin
+		throw 50001,'No FeedBack are presented',1;
+	end
+	else
+	begin
+		select * from FeedBack where IsDelete=0;
+	end
+	end try
+	begin catch
+		DECLARE @ErrorMessage NVARCHAR(4000);
+		SELECT @ErrorMessage = ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage,16,1);
+	end catch
+end;
