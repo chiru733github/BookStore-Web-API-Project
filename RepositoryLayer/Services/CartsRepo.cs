@@ -171,12 +171,12 @@ namespace RepositoryLayer.Services
             try
             {
                 conn.Open();
-                SqlCommand GetAllCartByUserIdcmd = new SqlCommand("ViewAllCart", conn)
+                SqlCommand GetAllCartscmd = new SqlCommand("ViewAllCart", conn)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
                 List<CartEntity> carts = new List<CartEntity>();
-                SqlDataReader reader = GetAllCartByUserIdcmd.ExecuteReader();
+                SqlDataReader reader = GetAllCartscmd.ExecuteReader();
                 while (reader.Read())
                 {
                     CartEntity cart = new CartEntity();

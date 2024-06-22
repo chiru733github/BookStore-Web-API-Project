@@ -70,7 +70,6 @@ namespace BookStoreApplication.Controllers
             }
             return Ok(CartsList);
         }
-        [Authorize]
         [HttpPut("UpdateQuantity")]
         public ActionResult UpdateQuantity(UpdateCartQuantity quantity)
         {
@@ -91,7 +90,6 @@ namespace BookStoreApplication.Controllers
                 return BadRequest(new ResponseModel<string> { IsSuccess = false, Message = "while Updating Cart throws Exception", Data = ex.Message });
             }
         }
-        [Authorize]
         [HttpDelete("RemoveBookFromCart")]
         public ActionResult RemoveBookFromCart(int cartId)
         {

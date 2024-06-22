@@ -26,6 +26,11 @@ namespace BookStoreApplication
             builder.Services.AddTransient<ICartRepo, CartsRepo>();
             builder.Services.AddTransient<IWishListBL, WishListBL>();
             builder.Services.AddTransient<IWishListRepo, WishListRepo>();
+            builder.Services.AddTransient<IAddressBL, AddressBL>();
+            builder.Services.AddTransient<IAddressRepo, AddressRepo>();
+            builder.Services.AddTransient<IOrdersBL, OrdersBL>();
+            builder.Services.AddTransient<IOrdersRepo, OrdersRepo>();
+
             builder.Services.AddSwaggerGen(
     option =>
     {
